@@ -45,7 +45,6 @@ async function readProgress(tabId) {
 async function callOpenAI(apiKey, systemPrompt, userPrompt) {
   const body = {
     model: MODEL,
-    temperature: 0.1,
     messages: [
       { role: 'system', content: systemPrompt },
       { role: 'user', content: userPrompt }
