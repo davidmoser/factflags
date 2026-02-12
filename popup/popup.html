@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FactFlags</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <h1>FactFlags</h1>
+
+  <label for="apiKey">OpenAI API Key</label>
+  <input id="apiKey" type="password" placeholder="sk-..." />
+  <button id="saveKey">Save Key</button>
+
+  <div class="buttons">
+    <button id="analyze">Analyze</button>
+    <button id="clear">Clear annotations</button>
+  </div>
+
+  <div id="status">Idle</div>
+  <div id="counts">🟩 0 • 🟧 0 • 🟥 0</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
