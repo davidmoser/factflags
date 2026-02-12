@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "FactFlags",
+  "version": "0.1.0",
+  "description": "Annotates article claims with evidence flags using the OpenAI API.",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "storage",
+    "https://api.openai.com/*"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "FactFlags",
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
