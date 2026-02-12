@@ -52,6 +52,12 @@ async function callOpenAI(apiKey, systemPrompt, userPrompt) {
     response_format: { type: 'json_object' }
   };
 
+  console.debug('[FactFlags] Sending OpenAI request', {
+    model: body.model,
+    systemPromptPreview: String(systemPrompt || '').slice(0, 80),
+    userPromptLength: String(userPrompt || '').length
+  });
+
   const response = await fetch(OPENAI_URL, {
     method: 'POST',
     headers: {
@@ -65,6 +71,11 @@ async function callOpenAI(apiKey, systemPrompt, userPrompt) {
     const text = await response.text();
     throw new Error(`OpenAI API error: ${response.status} ${text.slice(0, 400)}`);
   }
+
+  console.debug('[FactFlags] Received OpenAI response', {
+    status: response.status,
+    ok: response.ok
+  });
 
   const json = await response.json();
   const content = json?.choices?.[0]?.message?.content;
@@ -215,6 +226,12 @@ async function analyzeActiveTab() {
         };
       }
 
+      console.debug('[FactFlags] Attempting to inject flag into page', {
+        tabId,
+        id: result.id,
+        label: result.label,
+        anchorPreview: String(result.anchor || '').slice(0, 80)
+      });
       await browser.tabs.sendMessage(tabId, { type: 'FF_INJECT', payload: result }).catch(() => undefined);
 
       const current = await readProgress(tabId);
